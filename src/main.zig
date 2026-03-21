@@ -10,7 +10,7 @@ pub fn main(init: std.process.Init) !u8 {
     const allocator = init.gpa;
     const io = init.io;
 
-    var options = try options_mod.Options.parse(init.minimal.args);
+    const options = try options_mod.Options.parse(init.minimal.args);
 
     var choices = choices_mod.Choices.empty();
     defer choices.deinit(allocator);
