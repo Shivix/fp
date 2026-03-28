@@ -1,10 +1,15 @@
 PREFIX ?= /usr/local
 INSTALL_TARGET = $(PREFIX)/bin/fp
 
-install:
+build:
 	zig build -Doptimize=ReleaseFast
-	cp zig-out/bin/fp $(INSTALL_TARGET)
-	install -m 644 fp.1 /usr/share/man/man1/fp.1
+
+install: build
+	cp zig-out/bin/fp $(DESTDIR)$(INSTALL_TARGET)
+	install -m 644 fp.1 $(DESTDIR)$(PREFIX)/share/man/man1/fp.1
+
+clean:
+	rm -r zig-out
 
 install-completion:
 	install -m 644 completions.fish $(HOME)/.config/fish/completions/fp.fish
